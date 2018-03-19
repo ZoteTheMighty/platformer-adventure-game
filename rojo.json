@@ -1,0 +1,14 @@
+{
+  "name": "platformer",
+  "servePort": 8000,
+  "partitions": {
+    "game": {
+      "path": "src",
+      "target": "ReplicatedStorage"
+    },
+    "playerScripts": {
+      "path": "player",
+      "target": "StarterPlayer.StarterPlayerScripts"
+    }
+  }
+}
