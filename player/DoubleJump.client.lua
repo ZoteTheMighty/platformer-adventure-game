@@ -55,4 +55,4 @@ local function onRenderStep()
 	end
 end
 
-runService:BindToRenderStep('Camera', Enum.RenderPriority.Camera.Value, onRenderStep)
+-- runService:BindToRenderStep(' DebugPrint ', Enum.RenderPriority.Camera.Value, onRenderStep)

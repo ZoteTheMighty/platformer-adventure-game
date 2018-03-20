@@ -1,12 +1,13 @@
 local UserInputService = game:GetService("UserInputService")
 
 local localPlayer = game.Players.LocalPlayer
+local GameConstants = require(game.ReplicatedStorage.GameConstants)
 
 local function characterAdded(newCharacter)
 	local humanoid = newCharacter:WaitForChild("Humanoid")
 	
-	humanoid.JumpPower = 70
-	humanoid.WalkSpeed = 26
+	humanoid.JumpPower = GameConstants.JUMP_POWER
+	humanoid.WalkSpeed = GameConstants.WALK_SPEED
 end
 
 if localPlayer.Character then

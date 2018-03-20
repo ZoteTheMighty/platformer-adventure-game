@@ -2,9 +2,13 @@
   "name": "platformer",
   "servePort": 8000,
   "partitions": {
-    "game": {
-      "path": "src",
+    "gameStorage": {
+      "path": "src/ReplicatedStorage",
       "target": "ReplicatedStorage"
+    },
+    "gameFirst": {
+      "path": "src/ReplicatedFirst",
+      "target": "ReplicatedFirst"
     },
     "playerScripts": {
       "path": "player",

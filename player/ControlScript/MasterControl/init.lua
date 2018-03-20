@@ -17,6 +17,8 @@ local MasterControl = {}
 local Players = game:GetService('Players')
 local RunService = game:GetService('RunService')
 
+local GameConstants = require(game.ReplicatedStorage.GameConstants)
+
 while not Players.LocalPlayer do
 	Players.PlayerAdded:wait()
 end
@@ -67,8 +69,8 @@ local function characterAdded(character)
 	end)
 	
 	if CachedHumanoid ~= nil then
-		CachedHumanoid.JumpPower = 100
-		CachedHumanoid.WalkSpeed = 30
+		CachedHumanoid.JumpPower = GameConstants.JUMP_POWER
+		CachedHumanoid.WalkSpeed = GameConstants.WALK_SPEED
 	end
 	
 	characterChildRemovedConn = character.ChildRemoved:connect(function(child)

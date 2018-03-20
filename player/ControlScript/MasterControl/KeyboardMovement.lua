@@ -62,7 +62,7 @@ function KeyboardMovement:Enable()
 		else
 			MasterControl:AddToPlayerMovement(-currentMoveVector)
 			currentMoveVector = Vector3.new(leftValue + rightValue,0,forwardValue + backwardValue)
-			MasterControl:AddToPlayerMovement(currentMoveVector)	
+			MasterControl:AddToPlayerMovement(currentMoveVector)
 		end
 	end
 	
