@@ -22,6 +22,7 @@ local GameConstants = require(game.ReplicatedStorage.GameConstants)
 while not Players.LocalPlayer do
 	Players.PlayerAdded:wait()
 end
+
 local LocalPlayer = Players.LocalPlayer
 local LocalCharacter = LocalPlayer.Character
 local CachedHumanoid = nil
