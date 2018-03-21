@@ -2,71 +2,41 @@ local AdvanceArrow = {}
 
 local LevelTrackManager = require(game.ReplicatedStorage.LevelTrackManager)
 local GameConstants = require(game.ReplicatedStorage.GameConstants)
+local Util = require(game.ReplicatedStorage.Util)
 
-AdvanceArrow.trackId = -1
-AdvanceArrow.isActive = false
-
-AdvanceArrow.ArrowModel = nil
-AdvanceArrow.NextTrackSensor = nil
-
-local function setChildrenTransparency(model, value)
-	for i,v in ipairs(model:GetChildren()) do
-		v.Transparency = value
+local function onTouchPlayer(model, otherPart)
+	local player = game.Players:GetPlayerFromCharacter(otherPart.Parent)
+	if player then
+		local Config = model:FindFirstChild("Configuration")
+		print("Advance from " .. Config:FindFirstChild("Track").Value)
+		AdvanceArrow:AdvanceCharacter(model, player)
 	end
 end
 
-local function onTouchPart(part, limb)
-	local player = game.Players:GetPlayerFromCharacter(limb.Parent)
-	if (part == AdvanceArrow.ArrowModel:FindFirstChild("Base")) then
-		-- Only advance the player if they're not already in the process
-		if not player.PlayerScripts.ControlScript.Disabled then
-			AdvanceArrow:AdvanceCharacter(player)
-		end
-	end
+function AdvanceArrow:Initialize(parent)
+	local BasePlate = parent:FindFirstChild("BasePlate")
+	local Config = parent:FindFirstChild("Configuration")
+
+	local hasTriggered = false
+	BasePlate.Touched:Connect(Util:Debounce(1, function(otherPart)
+		onTouchPlayer(parent, otherPart)
+	end))
 end
 
-function AdvanceArrow:Initialize(parent, track, active)
-	self.ArrowModel = parent:FindFirstChild("Arrow")
-	self.NextTrackSensor = parent:FindFirstChild("NextTrackSensor")
+function AdvanceArrow:AdvanceCharacter(model, player)
+	local MasterControl = require(player.PlayerScripts.ControlScript.MasterControl)
+	MasterControl:Disable()
 
-	self.trackId = track
-	self.isActive = active
-
-	game.Players.PlayerAdded:connect(function(player)
-		player.CharacterAdded:connect(function(character)
-			character.Humanoid.Touched:connect(onTouchPart)
-		end)
-	end)
-end
-
-function AdvanceArrow:Activate()
-	if self.trackId < 0 then
-		error("Cannot activate uninitialized AdvanceArrow")
-	end
-	self.isActive = true
-	setChildrenTransparency(self.ArrowModel, 0)
-end
-
-function AdvanceArrow:Deactivate()
-	self.isActive = false
-	setChildrenTransparency(self.ArrowModel, 0.7)
-end
-
-
-function AdvanceArrow:AdvanceCharacter(player)
-	if self.isActive then
-		local MasterControl = require(player.PlayerScripts.ControlScript.MasterControl)
-		MasterControl:Disable()
-
-		local humanoid = player.Character.Humanoid
-		humanoid.WalkSpeed = 10
-		humanoid:MoveTo(self.NextTrackSensor.Position)
-		
-		-- Wait till we get there, then return control
-		humanoid.MoveToFinished:Wait()
-		MasterControl:Enable()
-		humanoid.WalkSpeed = GameConstants.WALK_SPEED
-	end
+	local NextTrackSensor = model:FindFirstChild("NextTrackSensor")
+	local humanoid = player.Character.Humanoid
+	humanoid.WalkSpeed = 10
+	humanoid:MoveTo(NextTrackSensor.Position)
+	
+	-- Wait till we get there, then return control
+	humanoid.MoveToFinished:Wait()
+	LevelTrackManager:AdvanceTrack()
+	MasterControl:Enable()
+	humanoid.WalkSpeed = GameConstants.WALK_SPEED
 end
 
 return AdvanceArrow

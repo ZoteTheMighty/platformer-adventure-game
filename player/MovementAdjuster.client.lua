@@ -8,6 +8,7 @@ local function characterAdded(newCharacter)
 	
 	humanoid.JumpPower = GameConstants.JUMP_POWER
 	humanoid.WalkSpeed = GameConstants.WALK_SPEED
+	humanoid.MaxSlopeAngle = GameConstants.MAX_SLOPE_ANGLE
 end
 
 if localPlayer.Character then
