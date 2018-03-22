@@ -36,7 +36,7 @@ end
 local function updateTransparency(camPos, playerPos)
 	-- Restore transparency
 	for model in pairs(modelTransparencies) do
-		modifyTransparency(model, 2.0)
+		modifyTransparency(model, 1.0 / 0.3)
 		modelTransparencies[model] = nil
 	end
 
@@ -59,7 +59,7 @@ local function updateTransparency(camPos, playerPos)
 
 	-- Set transparency for parts in list
 	for model in pairs(modelTransparencies) do
- 		modifyTransparency(model, 0.5)
+ 		modifyTransparency(model, 0.3)
 	end
 end
 

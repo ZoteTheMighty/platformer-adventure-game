@@ -1,0 +1,3 @@
+[submodule "roact"]
+	path = roact
+	url = git@github.com:Roblox/roact.git

@@ -1,7 +1,7 @@
 local UserInputService = game:GetService("UserInputService")
 
 local localPlayer = game.Players.LocalPlayer
-local GameConstants = require(game.ReplicatedStorage.GameConstants)
+local GameConstants = require(game.ReplicatedStorage.Modules.GameConstants)
 
 local function characterAdded(newCharacter)
 	local humanoid = newCharacter:WaitForChild("Humanoid")

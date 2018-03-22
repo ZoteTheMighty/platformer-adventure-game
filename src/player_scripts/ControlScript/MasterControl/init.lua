@@ -17,7 +17,7 @@ local MasterControl = {}
 local Players = game:GetService('Players')
 local RunService = game:GetService('RunService')
 
-local GameConstants = require(game.ReplicatedStorage.GameConstants)
+local GameConstants = require(game.ReplicatedStorage.Modules.GameConstants)
 
 while not Players.LocalPlayer do
 	Players.PlayerAdded:wait()

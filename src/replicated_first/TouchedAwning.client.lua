@@ -1,5 +1,5 @@
 local player = game.Players.LocalPlayer
-local GameConstants = require(game.ReplicatedStorage.GameConstants)
+local GameConstants = require(game.ReplicatedStorage.Modules.GameConstants)
 local adjustedPower = GameConstants.JUMP_POWER * 1.4
 
 function adjustJump(part, limb)

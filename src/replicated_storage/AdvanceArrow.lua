@@ -1,8 +1,7 @@
 local AdvanceArrow = {}
 
-local LevelTrackManager = require(game.ReplicatedStorage.LevelTrackManager)
-local GameConstants = require(game.ReplicatedStorage.GameConstants)
-local Util = require(game.ReplicatedStorage.Util)
+local GameConstants = require(game.ReplicatedStorage.Modules.GameConstants)
+local Util = require(game.ReplicatedStorage.Modules.Util)
 
 local function onTouchPlayer(model, otherPart)
 	local player = game.Players:GetPlayerFromCharacter(otherPart.Parent)
@@ -29,13 +28,12 @@ function AdvanceArrow:AdvanceCharacter(model, player)
 
 	local NextTrackSensor = model:FindFirstChild("NextTrackSensor")
 	local humanoid = player.Character.Humanoid
-	humanoid.WalkSpeed = 10
+	humanoid.WalkSpeed = 15
 	humanoid:MoveTo(NextTrackSensor.Position)
 	
 	-- Wait till we get there, then return control
 	humanoid.MoveToFinished:Wait()
-	LevelTrackManager:AdvanceTrack()
-	MasterControl:Enable()
+ 	MasterControl:Enable()
 	humanoid.WalkSpeed = GameConstants.WALK_SPEED
 end
 

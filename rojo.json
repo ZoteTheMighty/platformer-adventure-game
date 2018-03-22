@@ -2,17 +2,25 @@
   "name": "platformer",
   "servePort": 8000,
   "partitions": {
+    "roact": {
+      "path": "roact/lib",
+      "target": "ReplicatedStorage.Roact"
+    },
     "gameStorage": {
-      "path": "src/ReplicatedStorage",
-      "target": "ReplicatedStorage"
+      "path": "src/replicated_storage",
+      "target": "ReplicatedStorage.Modules"
     },
     "gameFirst": {
-      "path": "src/ReplicatedFirst",
+      "path": "src/replicated_first",
       "target": "ReplicatedFirst"
     },
     "playerScripts": {
-      "path": "player",
+      "path": "src/player_scripts",
       "target": "StarterPlayer.StarterPlayerScripts"
+    },
+    "playerGui": {
+      "path": "src/player_gui",
+      "target": "StarterGui"
     }
   }
 }
