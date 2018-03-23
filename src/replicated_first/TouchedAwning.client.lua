@@ -2,7 +2,7 @@ local player = game.Players.LocalPlayer
 local GameConstants = require(game.ReplicatedStorage.Modules.GameConstants)
 local adjustedPower = GameConstants.JUMP_POWER * 1.4
 
-function adjustJump(part, limb)
+function bounce(part, limb)
 	if part.name == "AwningGeometry" then
 		player.Character.Humanoid.JumpPower = adjustedPower
 		player.Character.Humanoid.Jump = true
@@ -16,6 +16,6 @@ function restoreJump(oldState, newState)
 end
 
 player.CharacterAdded:connect(function()
-	player.Character.Humanoid.Touched:connect(adjustJump)
+	player.Character.Humanoid.Touched:connect(bounce)
 	player.Character.Humanoid.StateChanged:connect(restoreJump)
 end)
