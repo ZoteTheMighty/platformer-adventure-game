@@ -9,13 +9,14 @@ local itemList = {}
 
 function Item:render()
 	local index = self.props.index
-	local color = self.props.color
+	local imageRef = self.props.imageRef
 	local width = self.props.width
 
-	return Roact.createElement("Frame", {
+	return Roact.createElement("ImageLabel", {
 		Size = UDim2.new(width, 0, 1, 0),
 		Position = UDim2.new(0, (index - 1) * 125, 0, 0),
-		BackgroundColor3 = color,
+		Image = imageRef,
+		BackgroundTransparency = 1,
 		ZIndex = 2
 	})
 end
@@ -37,7 +38,7 @@ function Inventory:render()
 	for i, v in ipairs(items) do
 		elements[i] = Roact.createElement(Item, {
 			index = i,
-			color = v,
+			imageRef = v,
 			width = 1.0 / itemCount
 		})
 	end
@@ -57,9 +58,6 @@ function Inventory:didMount()
 		self.running = true
 
 		while self.running do
-			-- Use 'setState' to update the component and patch the current
-			-- state with new properties.
-			-- Don't set `state` directly!
 			self:setState({
 				items = itemList
 			})
@@ -71,4 +69,5 @@ end
 
 Roact.reify(Roact.createElement(Inventory), Players.LocalPlayer.PlayerGui)
 
--- Can now add to itemList, which I'll probably move at some point
+-- Can now add to itemList, which I'll probably move/rename at some point
+itemList[1] = "http://www.roblox.com/asset/?id=91063296"
