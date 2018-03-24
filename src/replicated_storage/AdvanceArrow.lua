@@ -14,9 +14,7 @@ end
 
 function AdvanceArrow:Initialize(parent)
 	local BasePlate = parent:FindFirstChild("BasePlate")
-	local Config = parent:FindFirstChild("Configuration")
 
-	local hasTriggered = false
 	BasePlate.Touched:Connect(Util:Debounce(1, function(otherPart)
 		onTouchPlayer(parent, otherPart)
 	end))
@@ -30,10 +28,10 @@ function AdvanceArrow:AdvanceCharacter(model, player)
 	local humanoid = player.Character.Humanoid
 	humanoid.WalkSpeed = 15
 	humanoid:MoveTo(NextTrackSensor.Position)
-	
+
 	-- Wait till we get there, then return control
 	humanoid.MoveToFinished:Wait()
- 	MasterControl:Enable()
+	MasterControl:Enable()
 	humanoid.WalkSpeed = GameConstants.WALK_SPEED
 end
 

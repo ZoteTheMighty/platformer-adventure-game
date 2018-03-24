@@ -6,6 +6,14 @@
       "path": "roact/lib",
       "target": "ReplicatedStorage.Roact"
     },
+    "rodux": {
+      "path": "rodux/lib",
+      "target": "ReplicatedStorage.Rodux"
+    },
+    "roact-rodux": {
+      "path": "roact-rodux/lib",
+      "target": "ReplicatedStorage.RoactRodux"
+    },
     "gameStorage": {
       "path": "src/replicated_storage",
       "target": "ReplicatedStorage.Modules"
