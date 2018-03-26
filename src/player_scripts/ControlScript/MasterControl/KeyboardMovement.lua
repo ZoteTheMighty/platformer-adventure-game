@@ -7,9 +7,6 @@
 local Players = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
 local ContextActionService = game:GetService('ContextActionService')
-local StarterPlayer = game:GetService('StarterPlayer')
-local Settings = UserSettings()
-local GameSettings = Settings.GameSettings
 
 local KeyboardMovement = {}
 
@@ -49,12 +46,12 @@ function KeyboardMovement:Enable()
 	if not UserInputService.KeyboardEnabled then
 		return
 	end
-	
+
 	local forwardValue = 0
 	local backwardValue = 0
 	local leftValue = 0
 	local rightValue = 0
-	
+
 	local updateMovement = function(inputState)
 		if inputState == Enum.UserInputState.Cancel then
 			MasterControl:AddToPlayerMovement(-currentMoveVector)
@@ -65,8 +62,8 @@ function KeyboardMovement:Enable()
 			MasterControl:AddToPlayerMovement(currentMoveVector)
 		end
 	end
-	
-	local moveLeftFunc = function(actionName, inputState, inputObject)	
+
+	local moveLeftFunc = function(actionName, inputState, inputObject)
 		if inputState == Enum.UserInputState.Begin then
 			leftValue = -1
 		elseif inputState == Enum.UserInputState.End then
@@ -74,8 +71,8 @@ function KeyboardMovement:Enable()
 		end
 		updateMovement(inputState)
 	end
-	
-	local moveRightFunc = function(actionName, inputState, inputObject)	
+
+	local moveRightFunc = function(actionName, inputState, inputObject)
 		if inputState == Enum.UserInputState.Begin then
 			rightValue = 1
 		elseif inputState == Enum.UserInputState.End then
@@ -83,20 +80,20 @@ function KeyboardMovement:Enable()
 		end
 		updateMovement(inputState)
 	end
-	
+
 	local jumpFunc = function(actionName, inputState, inputObject)
 		MasterControl:SetIsJumping(inputState == Enum.UserInputState.Begin)
 		if inputState == Enum.UserInputState.End then
 			MasterControl:EndJump()
 		end
 	end
-	
+
 	-- TODO: remove up and down arrows, these seem unnecessary
 	ContextActionService:BindActionToInputTypes("leftMovement", moveLeftFunc, false, Enum.PlayerActions.CharacterLeft)
 	ContextActionService:BindActionToInputTypes("rightMovement", moveRightFunc, false, Enum.PlayerActions.CharacterRight)
 	ContextActionService:BindActionToInputTypes("jumpAction", jumpFunc, false, Enum.PlayerActions.CharacterJump)
 	-- TODO: make sure we check key state before binding to check if key is already down
-	
+
 	local function onFocusReleased()
 		local humanoid = getHumanoid()
 		if humanoid then
@@ -106,11 +103,11 @@ function KeyboardMovement:Enable()
 			MasterControl:SetIsJumping(false)
 		end
 	end
-	
+
 	local function onTextFocusGained(textboxFocused)
 		MasterControl:SetIsJumping(false)
 	end
-	
+
 	SeatJumpCn = UserInputService.InputBegan:connect(function(inputObject, isProcessed)
 		if inputObject.KeyCode == Enum.KeyCode.Backspace and not isProcessed then
 			local humanoid = getHumanoid()
@@ -119,7 +116,7 @@ function KeyboardMovement:Enable()
 			end
 		end
 	end)
-	
+
 	TextFocusReleasedCn = UserInputService.TextBoxFocusReleased:connect(onFocusReleased)
 	TextFocusGainedCn = UserInputService.TextBoxFocused:connect(onTextFocusGained)
 	-- TODO: remove pcall when API is live
@@ -130,7 +127,7 @@ function KeyboardMovement:Disable()
 	ContextActionService:UnbindAction("leftMovement")
 	ContextActionService:UnbindAction("rightMovement")
 	ContextActionService:UnbindAction("jumpAction")
-	
+
 	if SeatJumpCn then
 		SeatJumpCn:disconnect()
 		SeatJumpCn = nil
@@ -147,7 +144,7 @@ function KeyboardMovement:Disable()
 		WindowFocusReleasedCn:disconnect()
 		WindowFocusReleasedCn = nil
 	end
-	
+
 	MasterControl:AddToPlayerMovement(-currentMoveVector)
 	currentMoveVector = Vector3.new(0,0,0)
 	MasterControl:SetIsJumping(false)
