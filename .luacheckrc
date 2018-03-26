@@ -16,6 +16,7 @@ stds.roblox = {
 		"Color3",
 		"UDim", "UDim2",
 		"Rect",
+		"Ray",
 		"CFrame",
 		"Enum",
 		"Instance",

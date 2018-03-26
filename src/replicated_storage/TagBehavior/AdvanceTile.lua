@@ -11,7 +11,6 @@ function AdvanceTile.new(model)
 	setmetatable(self, AdvanceTile)
 
 	self.track = model:FindFirstChild("Configuration"):FindFirstChild("Track").Value
-	print(self.track)
 
 	local BasePlate = model:FindFirstChild("BasePlate")
 	local NextTrackSensor = model:FindFirstChild("NextTrackSensor")

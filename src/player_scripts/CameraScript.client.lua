@@ -1,4 +1,4 @@
--- local CollectionService = game:GetService("CollectionService")
+local CollectionService = game:GetService("CollectionService")
 
 local offset = Vector3.new(-30, 5, 0)
 local fov = 70
@@ -11,22 +11,22 @@ local modelTransparencies = {}
 
 camera.FieldOfView = fov
 
-local function modifyTransparency(model, multiplier)
-	for _, child in ipairs(model:GetChildren()) do
+local function modifyTransparency(instance, multiplier)
+	-- Apply transparency to parts
+	if instance:IsA("BasePart") then
+		local alpha = 1.0 - instance.Transparency
+		instance.Transparency = 1.0 - (alpha * multiplier)
+	end
 
-		-- If part, adjust transparency property
-		if child:IsA("BasePart") then
-			local alpha = 1.0 - child.Transparency
-			child.Transparency = 1.0 - (alpha * multiplier)
-		else
-			modifyTransparency(child, multiplier)
-		end
+	-- Apply to any children found
+	for _, child in ipairs(instance:GetChildren()) do
+		modifyTransparency(child, multiplier)
 	end
 end
 
 local function findTransparencyGroup(obj)
 	while obj.Parent do
-		if obj.Name == "TransparencyGroup" then
+		if CollectionService:HasTag(obj, "TransparencyGroup") then
 			return obj
 		end
 		obj = obj.Parent
@@ -56,6 +56,10 @@ local function updateTransparency(camPos, playerPos)
 			modelTransparencies[model] = true
 		end
 		table.insert(ignoreList, part)
+	end
+
+	for model in pairs(modelTransparencies) do
+		print(model.Name)
 	end
 
 	-- Set transparency for parts in list
