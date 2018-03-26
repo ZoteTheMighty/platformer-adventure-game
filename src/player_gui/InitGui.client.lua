@@ -24,11 +24,3 @@ local function addItem(item)
 end
 
 Roact.reify(app, Players.LocalPlayer.PlayerGui, "Inventory")
-
-for _ = 1, 5 do
-	wait(1)
-	addItem({
-		name = "hammer",
-		url = "http://www.roblox.com/asset/?id=91063296"
-	})
-end

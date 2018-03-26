@@ -8,7 +8,6 @@ function Item:render()
 	local item = self.props.item
 	local width = self.props.width
 
-	print("Rendering an item")
 	return Roact.createElement("ImageLabel", {
 		Size = UDim2.new(width, 0, 1, 0),
 		Position = UDim2.new(0, (index - 1) * 125, 0, 0),

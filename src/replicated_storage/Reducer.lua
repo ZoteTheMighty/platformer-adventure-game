@@ -1,5 +1,5 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Immutable = require(ReplicatedStorage.Modules.Immutable)
+local Immutable = require(ReplicatedStorage.Modules.Util.Immutable)
 
 local function inventoryReducer(state, action)
 	state = state or {
@@ -7,7 +7,6 @@ local function inventoryReducer(state, action)
 	}
 
 	if action.type == "AddInventoryItem" then
-		print("Firing item reducer")
 		return {
 			items = Immutable.Append(state.items, action.item)
 		}

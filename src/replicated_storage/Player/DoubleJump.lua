@@ -9,12 +9,12 @@ local maxDoubleJumps = 2
 
 local doubleJumpsLeft = 0
 
-function onJumpRequest()
-	if not character or not humanoid or not character:IsDescendantOf(workspace)
+local function onJumpRequest()
+	if not character or not humanoid or not character:IsDescendantOf(game.Workspace)
 			or humanoid:GetState() == Enum.HumanoidStateType.Dead then
 		return
 	end
-	
+
 	if doubleJumpsLeft > 0 and humanoid:GetState() == Enum.HumanoidStateType.Freefall then
 		doubleJumpsLeft = doubleJumpsLeft - 1
 		humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
@@ -25,7 +25,7 @@ local function characterAdded(newCharacter)
 	character = newCharacter
 	humanoid = newCharacter:WaitForChild("Humanoid")
 	doubleJumpsLeft = 0
-	
+
 	humanoid.StateChanged:connect(function(old, new)
 		if new == Enum.HumanoidStateType.Landed then
 			doubleJumpsLeft = maxDoubleJumps
@@ -40,19 +40,4 @@ end
 localPlayer.CharacterAdded:connect(characterAdded)
 UserInputService.JumpRequest:connect(onJumpRequest)
 
--- State tracker for convenience
-local prevState = nil
-
-local runService = game:GetService("RunService")
-
-local function onRenderStep()	
-	if humanoid ~= nil then
-		local state = humanoid:GetState()
-		if state ~= prevState then
-			print(state)
-		end
-		prevState = state
-	end
-end
-
--- runService:BindToRenderStep(' DebugPrint ', Enum.RenderPriority.Camera.Value, onRenderStep)
+return nil -- Module only needs to run

@@ -18,10 +18,6 @@
       "path": "src/replicated_storage",
       "target": "ReplicatedStorage.Modules"
     },
-    "gameFirst": {
-      "path": "src/replicated_first",
-      "target": "ReplicatedFirst"
-    },
     "playerScripts": {
       "path": "src/player_scripts",
       "target": "StarterPlayer.StarterPlayerScripts"
