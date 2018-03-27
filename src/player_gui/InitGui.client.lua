@@ -5,10 +5,10 @@ local Roact = require(ReplicatedStorage.Roact)
 local Rodux = require(ReplicatedStorage.Rodux)
 local RoactRodux = require(ReplicatedStorage.RoactRodux)
 
-local Reducer = require(ReplicatedStorage.Modules.Reducer)
+local DataManager = require(ReplicatedStorage.Modules.DataManager)
 local Inventory = require(ReplicatedStorage.Modules.Components.Inventory)
 
-local store = Rodux.Store.new(Reducer)
+local store = DataManager.store
 
 local app = Roact.createElement(RoactRodux.StoreProvider, {
 	store = store,
@@ -18,7 +18,7 @@ local app = Roact.createElement(RoactRodux.StoreProvider, {
 
 local function addItem(item)
 	store:dispatch({
-		type = "AddInventoryItem",
+		type = "PickupItem",
 		item = item,
 	})
 end

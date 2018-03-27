@@ -10,7 +10,10 @@ Interactive.ConfigSpec = {
 }
 
 function Interactive.new(model)
-	local self = {}
+	local self = {
+		model = model
+	}
+	setmetatable(self, Interactive)
 
 	self.rangeSquared = model:FindFirstChild("Config"):FindFirstChild("Range").Value
 
@@ -41,6 +44,7 @@ function Interactive.new(model)
 end
 
 function Interactive:destroy()
+	print("remove Interactive")
 	self.heartbeatConn:Disconnect()
 end
 

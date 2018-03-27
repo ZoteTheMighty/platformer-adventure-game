@@ -5,7 +5,8 @@ local AdvanceTile = {}
 AdvanceTile.__index = AdvanceTile
 
 AdvanceTile.ConfigSpec = {
-	["Track"] = "IntValue"
+	["SourceTrack"] = "IntValue",
+	["DestTrack"] = "IntValue",
 }
 
 function AdvanceTile.new(model)
@@ -14,7 +15,8 @@ function AdvanceTile.new(model)
 	}
 	setmetatable(self, AdvanceTile)
 
-	self.track = model:FindFirstChild("Config"):FindFirstChild("Track").Value
+	self.sourceTrack = model:FindFirstChild("Config"):FindFirstChild("SourceTrack").Value
+	self.destTrack = model:FindFirstChild("Config"):FindFirstChild("DestTrack").Value
 
 	local BasePlate = model:FindFirstChild("BasePlate")
 	local NextTrackSensor = model:FindFirstChild("NextTrackSensor")
@@ -44,8 +46,12 @@ function AdvanceTile.new(model)
 	return self
 end
 
-function AdvanceTile:getTrack()
-	return self.track
+function AdvanceTile:getSourceTrack()
+	return self.sourceTrack
+end
+
+function AdvanceTile:getDestTrack()
+	return self.destTrack
 end
 
 function AdvanceTile:destroy()
