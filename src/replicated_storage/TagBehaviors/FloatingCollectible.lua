@@ -3,6 +3,8 @@ local RunService = game:GetService("RunService")
 local FloatingCollectible = {}
 FloatingCollectible.__index = FloatingCollectible
 
+FloatingCollectible.ConfigSpec = {}
+
 function FloatingCollectible.new(model)
 	local self = {}
 	self.model = model

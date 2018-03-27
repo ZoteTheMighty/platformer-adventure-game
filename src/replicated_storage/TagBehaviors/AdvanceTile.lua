@@ -4,13 +4,17 @@ local debounce = require(game.ReplicatedStorage.Modules.Util.Debounce)
 local AdvanceTile = {}
 AdvanceTile.__index = AdvanceTile
 
+AdvanceTile.ConfigSpec = {
+	["Track"] = "IntValue"
+}
+
 function AdvanceTile.new(model)
 	local self = {
 		model = model
 	}
 	setmetatable(self, AdvanceTile)
 
-	self.track = model:FindFirstChild("Configuration"):FindFirstChild("Track").Value
+	self.track = model:FindFirstChild("Config"):FindFirstChild("Track").Value
 
 	local BasePlate = model:FindFirstChild("BasePlate")
 	local NextTrackSensor = model:FindFirstChild("NextTrackSensor")

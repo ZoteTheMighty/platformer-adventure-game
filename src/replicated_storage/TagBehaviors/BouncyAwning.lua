@@ -7,6 +7,8 @@ local adjustedPower = GameConstants.JUMP_POWER * 1.4
 local BouncyAwning = {}
 BouncyAwning.__index = BouncyAwning
 
+BouncyAwning.ConfigSpec = {}
+
 local function getJumpReset(humanoid)
 	return function(oldState, newState)
 		if newState == Enum.HumanoidStateType.Freefall then

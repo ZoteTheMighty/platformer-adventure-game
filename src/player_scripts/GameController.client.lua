@@ -3,6 +3,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Debug modules
 -- require(ReplicatedStorage.Modules.Util.PlayerStateTracker)
+require(ReplicatedStorage.Modules.Util.CheckConfigSpec)
 
 -- Connect movement adjustment logic
 require(ReplicatedStorage.Modules.Player.DoubleJump)
@@ -10,9 +11,9 @@ require(ReplicatedStorage.Modules.Player.MovementAdjuster)
 
 -- Bind tagged interactive objects
 local Binder = require(ReplicatedStorage.Modules.Binder)
-local AdvanceTile = require(ReplicatedStorage.Modules.TagBehavior.AdvanceTile)
-local BouncyAwning = require(ReplicatedStorage.Modules.TagBehavior.BouncyAwning)
-local FloatingCollectible = require(ReplicatedStorage.Modules.TagBehavior.FloatingCollectible)
+local AdvanceTile = require(ReplicatedStorage.Modules.TagBehaviors.AdvanceTile)
+local BouncyAwning = require(ReplicatedStorage.Modules.TagBehaviors.BouncyAwning)
+local FloatingCollectible = require(ReplicatedStorage.Modules.TagBehaviors.FloatingCollectible)
 
 Binder.new("AdvanceTile", AdvanceTile)
 Binder.new("BouncyAwning", BouncyAwning)
