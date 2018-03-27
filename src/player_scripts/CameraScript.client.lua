@@ -58,10 +58,6 @@ local function updateTransparency(camPos, playerPos)
 		table.insert(ignoreList, part)
 	end
 
-	for model in pairs(modelTransparencies) do
-		print(model.Name)
-	end
-
 	-- Set transparency for parts in list
 	for model in pairs(modelTransparencies) do
 		modifyTransparency(model, 0.3)
