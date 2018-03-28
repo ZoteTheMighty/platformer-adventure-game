@@ -42,7 +42,11 @@ function Interactive.new(model)
 		local humanoid = character.Humanoid
 		if not humanoid then return end
 
+		local prev = self.selectionBox.Visible
 		self.selectionBox.Visible = isInteractable(humanoid.RootPart.Position, model.PrimaryPart.Position)
+		if self.selectionBox.Visible ~= prev then
+			DataManager.setInClickRange(self.model.Name, self.selectionBox.Visible)
+		end
 	end)
 
 	return self

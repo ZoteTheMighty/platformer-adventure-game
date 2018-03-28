@@ -15,13 +15,12 @@ function Obstacle.new(model)
 	}
 	setmetatable(self, Obstacle)
 
-	self.toolRequired = model:FindFirstChild("Config"):FindFirstChild("Tool").Value
+	self.toolRequired = model:FindFirstChild("Config"):FindFirstChild("ToolRequired").Value
 
 	return self
 end
 
 function Obstacle:onClick()
-	DataManager.addItem(self.tool)
 	self.model:Destroy()
 end
 

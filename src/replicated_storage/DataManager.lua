@@ -34,6 +34,20 @@ function DataManager.selectTool(tool)
 	})
 end
 
+function DataManager.setInClickRange(item, isInRange)
+	if isInRange then
+		DataManager.store:dispatch({
+			type = "ObjectEnterRange",
+			item = item,
+		})
+	else
+		DataManager.store:dispatch({
+			type = "ObjectExitRange",
+			item = item,
+		})
+	end
+end
+
 function DataManager.getTrack()
 	return DataManager.store:getState().progression.trackId
 end

@@ -8,7 +8,7 @@ local HUD = Roact.Component:extend("HUD")
 
 function HUD:render()
 	return Roact.createElement("ScreenGui", {}, {
-		-- Roact.createElement(ContextBar),
+		Roact.createElement(ContextBar),
 		Roact.createElement(Inventory),
 	})
 end
