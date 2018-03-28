@@ -1,5 +1,8 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+
+local DataManager = require(ReplicatedStorage.Modules.DataManager)
 
 local Interactive = {}
 Interactive.__index = Interactive
@@ -16,6 +19,7 @@ function Interactive.new(model)
 	setmetatable(self, Interactive)
 
 	self.rangeSquared = model:FindFirstChild("Config"):FindFirstChild("Range").Value
+	self.track = model:FindFirstChild("Config"):FindFirstChild("Track").Value
 
 	self.selectionBox = Instance.new("SelectionBox", model)
 	self.selectionBox.Adornee = model
@@ -25,10 +29,11 @@ function Interactive.new(model)
 
 	local player = Players.LocalPlayer
 
-	local function isInRange(a, b)
+	local function isInteractable(a, b)
 		local z = b.Z - a.Z
 		local y = b.Y - a.Y
-		return (z * z + y * y) < self.rangeSquared
+		local onTrack = (self.track == DataManager.getTrack())
+		return onTrack and (z * z + y * y) < self.rangeSquared
 	end
 
 	self.heartbeatConn = RunService.Heartbeat:Connect(function()
@@ -37,15 +42,22 @@ function Interactive.new(model)
 		local humanoid = character.Humanoid
 		if not humanoid then return end
 
-		self.selectionBox.Visible = isInRange(humanoid.RootPart.Position, model.PrimaryPart.Position)
+		self.selectionBox.Visible = isInteractable(humanoid.RootPart.Position, model.PrimaryPart.Position)
 	end)
 
 	return self
 end
 
+function Interactive:isInRange()
+	return self.selectionBox.Visible
+end
+
 function Interactive:destroy()
-	print("remove Interactive")
 	self.heartbeatConn:Disconnect()
+end
+
+function Interactive:getTrack()
+	return self.track
 end
 
 return Interactive

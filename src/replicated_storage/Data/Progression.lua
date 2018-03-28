@@ -6,7 +6,7 @@ Progression.__index = Progression
 
 function Progression.reducer(state, action)
 	state = state or {
-		trackId = 1,
+		trackId = 2,
 		gameStep = 1,
 	}
 

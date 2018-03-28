@@ -59,14 +59,10 @@ function Binder:_add(inst)
 		self.instances[inst] = self.class(inst, self)
 	else
 		self.instances[inst] = self.class.new(inst, self)
-		local result = self.instances[inst]
-		print(inst.ClassName)
 	end
 end
 
 function Binder:_remove(inst)
-	local result = self.instances[inst]
-	print(inst.ClassName)
 	self.instances[inst]:destroy()
 end
 

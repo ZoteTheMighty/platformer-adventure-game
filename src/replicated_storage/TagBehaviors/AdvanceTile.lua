@@ -1,4 +1,5 @@
 local GameConstants = require(game.ReplicatedStorage.Modules.GameConstants)
+local DataManager = require(game.ReplicatedStorage.Modules.DataManager)
 local debounce = require(game.ReplicatedStorage.Modules.Util.Debounce)
 
 local AdvanceTile = {}
@@ -31,6 +32,7 @@ function AdvanceTile.new(model)
 		humanoid:MoveTo(NextTrackSensor.Position)
 
 		-- Wait till we get there, then return control
+		DataManager.updateTrack(self.destTrack)
 		humanoid.MoveToFinished:Wait()
 		MasterControl:Enable()
 		humanoid.WalkSpeed = GameConstants.WALK_SPEED

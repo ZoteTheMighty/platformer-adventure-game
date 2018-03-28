@@ -17,19 +17,16 @@ function CollectibleTool.new(model)
 
 	self.tool = model:FindFirstChild("Config"):FindFirstChild("Tool").Value
 
-	local function onClick(player)
-		DataManager.addItem(self.tool)
-		self.model:Destroy()
-	end
-	self.clickDetector = Instance.new("ClickDetector", model)
-	self.clickConn = self.clickDetector.MouseClick:Connect(onClick)
-
 	return self
 end
 
+function CollectibleTool:onClick()
+	DataManager.addItem(self.tool)
+	self.model:Destroy()
+end
+
 function CollectibleTool:destroy()
-	print("remove CollectibleTool")
-	self.clickConn:Disconnect()
+	-- No additional cleanup required
 end
 
 return CollectibleTool

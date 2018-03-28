@@ -14,26 +14,24 @@ function Inventory:render()
 
 	-- build child elements
 	local elements = {}
-	local count = 1
+	local count = 0
 	for id, data in pairs(PuzzleTools.data()) do
 		-- has item
 		if tools[id] then
+			count = count+1
 			elements[count] = Roact.createElement(Item, {
 				index = count,
 				item = data,
 			})
-			count = count+1
 		end
 	end
 
-	return Roact.createElement("ScreenGui", {}, {
-		Roact.createElement("Frame", {
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Size = UDim2.new(0, 120*(count-1), 0, 120),
-			Position = UDim2.new(0.5, 0, 0.9, 0),
-			BackgroundTransparency = 1
-		}, elements)
-	})
+	return Roact.createElement("Frame", {
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Size = UDim2.new(0, 120*count, 0, 120),
+		Position = UDim2.new(0.5, 0, 0.9, 0),
+		BackgroundTransparency = 0
+	}, elements)
 end
 
 Inventory = RoactRodux.connect(function(store, props)
