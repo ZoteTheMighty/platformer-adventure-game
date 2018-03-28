@@ -12,12 +12,12 @@ function Interaction.reducer(state, action)
 
 	if action.type == "ObjectEnterRange" then
 		return {
-			nearbyObjects = Immutable.Set(state.nearbyObjects, action.item, true),
+			nearbyObjects = Immutable.Set(state.nearbyObjects, action.object, true),
 			selectedTool = state.selectedTool
 		}
 	elseif action.type == "ObjectExitRange" then
 		return {
-			nearbyObjects = Immutable.RemoveFromDictionary(state.nearbyObjects, action.item),
+			nearbyObjects = Immutable.RemoveFromDictionary(state.nearbyObjects, action.object),
 			selectedTool = state.selectedTool
 		}
 	elseif action.type == "ToolSelectionChanged" then

@@ -3,6 +3,7 @@ local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 
 local DataManager = require(ReplicatedStorage.Modules.DataManager)
+local NameData = require(ReplicatedStorage.Modules.Data.GameObjectDb).names
 
 local Interactive = {}
 Interactive.__index = Interactive
@@ -10,6 +11,7 @@ Interactive.__index = Interactive
 Interactive.ConfigSpec = {
 	["Track"] = "IntValue",
 	["Range"] = "NumberValue",
+	["Object"] = "StringValue",
 }
 
 function Interactive.new(model)
@@ -18,14 +20,17 @@ function Interactive.new(model)
 	}
 	setmetatable(self, Interactive)
 
-	self.rangeSquared = model:FindFirstChild("Config"):FindFirstChild("Range").Value
-	self.track = model:FindFirstChild("Config"):FindFirstChild("Track").Value
+	local Config = model:FindFirstChild("Config")
+	self.rangeSquared = Config:FindFirstChild("Range").Value
+	self.track = Config:FindFirstChild("Track").Value
+	self.objName = NameData[Config:FindFirstChild("Object").Value]
+	self.inRange = false
 
 	self.selectionBox = Instance.new("SelectionBox", model)
 	self.selectionBox.Adornee = model
 	self.selectionBox.LineThickness = 0.1
 	self.selectionBox.Color3 = Color3.new(0.95,0.9,0)
-	self.selectionBox.Visible = true
+	self.selectionBox.Visible = false
 
 	local player = Players.LocalPlayer
 
@@ -42,10 +47,12 @@ function Interactive.new(model)
 		local humanoid = character.Humanoid
 		if not humanoid then return end
 
-		local prev = self.selectionBox.Visible
-		self.selectionBox.Visible = isInteractable(humanoid.RootPart.Position, model.PrimaryPart.Position)
-		if self.selectionBox.Visible ~= prev then
-			DataManager.setInClickRange(self.model.Name, self.selectionBox.Visible)
+		local prev = self.inRange
+		self.inRange = isInteractable(humanoid.RootPart.Position, model.PrimaryPart.Position)
+		self.selectionBox.Visible = self.inRange
+
+		if self.inRange ~= prev then
+			DataManager.setInClickRange(self.objName, self.inRange)
 		end
 	end)
 
@@ -53,10 +60,11 @@ function Interactive.new(model)
 end
 
 function Interactive:isInRange()
-	return self.selectionBox.Visible
+	return self.inRange
 end
 
 function Interactive:destroy()
+	DataManager.setInClickRange(self.objName, false)
 	self.heartbeatConn:Disconnect()
 end
 

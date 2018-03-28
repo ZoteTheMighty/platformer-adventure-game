@@ -20,10 +20,10 @@ end
 
 DataManager.store = Rodux.Store.new(DataManager.reducer)
 
-function DataManager.addItem(item)
+function DataManager.addTool(tool)
 	DataManager.store:dispatch({
-		type = "PickupItem",
-		item = item,
+		type = "PickupTool",
+		tool = tool,
 	})
 end
 
@@ -34,16 +34,16 @@ function DataManager.selectTool(tool)
 	})
 end
 
-function DataManager.setInClickRange(item, isInRange)
+function DataManager.setInClickRange(object, isInRange)
 	if isInRange then
 		DataManager.store:dispatch({
 			type = "ObjectEnterRange",
-			item = item,
+			object = object,
 		})
 	else
 		DataManager.store:dispatch({
 			type = "ObjectExitRange",
-			item = item,
+			object = object,
 		})
 	end
 end

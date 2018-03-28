@@ -3,25 +3,25 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Roact = require(ReplicatedStorage.Roact)
 local RoactRodux = require(ReplicatedStorage.RoactRodux)
 
-local Item = require(ReplicatedStorage.Modules.Components.Item)
+local Tool = require(ReplicatedStorage.Modules.Components.Tool)
 
-local PuzzleTools = require(ReplicatedStorage.Modules.Data.PuzzleTools)
+local NameData = require(ReplicatedStorage.Modules.Data.GameObjectDb).names
+local ToolData = require(ReplicatedStorage.Modules.Data.GameObjectDb).tools
 
 local Inventory = Roact.Component:extend("Inventory")
 
 function Inventory:render()
 	local tools = self.props.tools
 
-	-- build child elements
 	local elements = {}
 	local count = 0
-	for id, data in pairs(PuzzleTools.data()) do
-		-- has item
+	for id, data in pairs(ToolData) do
 		if tools[id] then
 			count = count+1
-			elements[count] = Roact.createElement(Item, {
+			elements[count] = Roact.createElement(Tool, {
 				index = count,
-				item = data,
+				icon = data.icon,
+				name = NameData[id]
 			})
 		end
 	end

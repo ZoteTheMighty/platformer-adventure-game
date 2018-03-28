@@ -1,15 +1,16 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Roact = require(ReplicatedStorage.Roact)
 
-local Item = Roact.Component:extend("Item")
+local Tool = Roact.Component:extend("Tool")
 
-function Item:render()
+function Tool:render()
 	local index = self.props.index
-	local item = self.props.item
+	local icon = self.props.icon
+	local name = self.props.name
 
 	local imageLabel = Roact.createElement("ImageLabel", {
 		Size = UDim2.new(1, 0, 1, 0),
-		Image = item.image,
+		Image = icon,
 		ZIndex = 2
 	})
 	local textLabel = Roact.createElement("TextLabel", {
@@ -19,7 +20,7 @@ function Item:render()
 		BackgroundColor3 = Color3.new(0,0,0),
 		BackgroundTransparency = 0.5,
 		TextColor3 = Color3.new(0.85,0.85,0.85),
-		Text = item.name,
+		Text = name,
 		ZIndex = 3,
 	})
 
@@ -31,4 +32,4 @@ function Item:render()
 	}, { textLabel, imageLabel })
 end
 
-return Item
+return Tool

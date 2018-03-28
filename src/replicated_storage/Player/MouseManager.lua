@@ -20,15 +20,15 @@ local function mouseClick()
 	local partToTagHolder = {}
 	local currentTrack = DataManager.getTrack()
 	for _, object in pairs(CollectionService:GetTagged(TagBindings.Interactive.tagName)) do
-		local interactiveComp = TagBindings.Interactive:get(object)
+		local interactive = TagBindings.Interactive:get(object)
 		local part = nil
 		if object:IsA("BasePart") then
 			part = object
 		elseif object:IsA("Model") then
 			part = object.PrimaryPart
 		end
-		if part and interactiveComp then
-			if interactiveComp:getTrack() == currentTrack then
+		if part and interactive then
+			if interactive:isInRange() and interactive:getTrack() == currentTrack then
 				validParts[#validParts+1] = part
 				partToTagHolder[part] = object
 			end

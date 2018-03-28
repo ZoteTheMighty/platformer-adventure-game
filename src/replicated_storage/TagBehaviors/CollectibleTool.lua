@@ -5,8 +5,7 @@ local CollectibleTool = {}
 CollectibleTool.__index = CollectibleTool
 
 CollectibleTool.ConfigSpec = {
-	["Track"] = "IntValue",
-	["Tool"] = "StringValue",
+	["Object"] = "StringValue",
 }
 
 function CollectibleTool.new(model)
@@ -15,13 +14,13 @@ function CollectibleTool.new(model)
 	}
 	setmetatable(self, CollectibleTool)
 
-	self.tool = model:FindFirstChild("Config"):FindFirstChild("Tool").Value
+	self.tool = model:FindFirstChild("Config"):FindFirstChild("Object").Value
 
 	return self
 end
 
 function CollectibleTool:onClick()
-	DataManager.addItem(self.tool)
+	DataManager.addTool(self.tool)
 	self.model:Destroy()
 end
 
