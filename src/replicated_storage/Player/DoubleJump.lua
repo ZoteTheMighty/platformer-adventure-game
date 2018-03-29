@@ -5,7 +5,7 @@ local character
 local humanoid
 
 -- Main control switch for how many (if any) double jumps are available
-local maxDoubleJumps = 2
+local maxDoubleJumps = 3
 
 local doubleJumpsLeft = 0
 

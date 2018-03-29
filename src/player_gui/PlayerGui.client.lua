@@ -14,3 +14,7 @@ local app = Roact.createElement(RoactRodux.StoreProvider, {
 })
 
 Roact.reify(app, Players.LocalPlayer.PlayerGui, "HUD")
+
+DataManager.addTool("crowbar")
+DataManager.addTool("universalRemote")
+DataManager.addTool("stepLadder")

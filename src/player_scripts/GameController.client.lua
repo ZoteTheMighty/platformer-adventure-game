@@ -3,7 +3,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Debug modules
 -- require(ReplicatedStorage.Modules.Util.PlayerStateTracker)
-require(ReplicatedStorage.Modules.Util.CheckConfigSpec)
+-- require(ReplicatedStorage.Modules.Util.CheckConfigSpec)
 
 -- Connect movement adjustment logic
 require(ReplicatedStorage.Modules.Player.DoubleJump)

@@ -39,6 +39,6 @@ for _, mod in ipairs(TagModules) do
 	else
 		print("WARNING - No config spec defined for " .. mod.Name)
 	end
-end
+ end
 
 return nil -- Only runs

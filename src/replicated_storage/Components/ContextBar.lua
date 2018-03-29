@@ -31,7 +31,7 @@ function ContextBar:render()
 		Size = UDim2.new(0.6, 0, 0.05, 0),
 		Position = UDim2.new(0.5, 0, 0, 0),
 		BackgroundColor3 = Color3.new(0, 0, 0),
-		BackgroundTransparency = 0.6,
+		BackgroundTransparency = 0.8,
 	}, children)
 end
 

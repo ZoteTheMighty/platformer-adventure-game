@@ -23,7 +23,7 @@ function Interactive.new(model)
 	local Config = model:FindFirstChild("Config")
 	self.rangeSquared = Config:FindFirstChild("Range").Value
 	self.track = Config:FindFirstChild("Track").Value
-	self.objName = NameData[Config:FindFirstChild("Object").Value]
+	self.objectId = NameData[Config:FindFirstChild("Object").Value]
 	self.inRange = false
 
 	self.selectionBox = Instance.new("SelectionBox", model)
@@ -52,7 +52,7 @@ function Interactive.new(model)
 		self.selectionBox.Visible = self.inRange
 
 		if self.inRange ~= prev then
-			DataManager.setInClickRange(self.objName, self.inRange)
+			DataManager.setInClickRange(self.objectId, self.inRange)
 		end
 	end)
 
@@ -64,7 +64,8 @@ function Interactive:isInRange()
 end
 
 function Interactive:destroy()
-	DataManager.setInClickRange(self.objName, false)
+	DataManager.setInClickRange(self.objectId, false)
+	self.selectionBox.Visible = false
 	self.heartbeatConn:Disconnect()
 end
 
