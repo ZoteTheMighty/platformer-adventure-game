@@ -1,7 +1,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Rodux = require(ReplicatedStorage.Rodux)
 
-local PuzzleTools = require(ReplicatedStorage.Modules.Data.PuzzleTools)
+local Items = require(ReplicatedStorage.Modules.Data.Items)
 local Progression = require(ReplicatedStorage.Modules.Data.Progression)
 local Interaction = require(ReplicatedStorage.Modules.Data.Interaction)
 local Dialogue = require(ReplicatedStorage.Modules.Data.Dialogue)
@@ -13,7 +13,7 @@ function DataManager.reducer(state, action)
 	state = state or {}
 
 	return {
-		tools = PuzzleTools.reducer(state.tools, action),
+		items = Items.reducer(state.items, action),
 		progression = Progression.reducer(state.progression, action),
 		interaction = Interaction.reducer(state.interaction, action),
 		dialogue = Dialogue.reducer(state.dialogue, action),
@@ -22,10 +22,17 @@ end
 
 DataManager.store = Rodux.Store.new(DataManager.reducer)
 
-function DataManager.addTool(tool)
+function DataManager.addItem(item)
 	DataManager.store:dispatch({
-		type = "PickupTool",
-		tool = tool,
+		type = "PickupItem",
+		item = item,
+	})
+end
+
+function DataManager.consumeItem(item)
+	DataManager.store:dispatch({
+		type = "consumeItem",
+		item = item,
 	})
 end
 
@@ -67,15 +74,15 @@ function DataManager.toggleInventory()
 	})
 end
 
-function DataManager.selectTool(tool)
+function DataManager.selectItem(item)
 	DataManager.store:dispatch({
-		type = "ToolSelectionChanged",
-		tool = tool,
+		type = "ItemSelectionChanged",
+		item = item,
 	})
 end
 
-function DataManager.getSelectedTool()
-	return DataManager.store:getState().interaction.selectedTool
+function DataManager.getSelectedItem()
+	return DataManager.store:getState().interaction.selectedItem
 end
 
 function DataManager.showDialogue(character, message)

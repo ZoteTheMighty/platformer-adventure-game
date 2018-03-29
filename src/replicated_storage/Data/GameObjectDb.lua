@@ -9,44 +9,48 @@ local GameObjectDb = {
 		-- characters
 		player = "",
 		npc1 = "Friendly-Looking Guy",
-		-- tools
+		-- items
 		crowbar = "Rusty Crowbar",
-		stepLadder = "Step Ladder",
-		universalRemote = "Universal Remote",
+		truckKey = "Truck Key",
 		-- environment
 		looseBoardScaffolding = "Loose Board",
 	},
-	tools = {
+	items = {
 		crowbar = {
 			icon = "http://www.roblox.com/asset/?id=159050206",
 			cursorIcon = "rbxgameasset://Images/crowbar-cursor",
 		},
-		stepLadder = {
-			icon = "http://www.roblox.com/asset/?id=32328941",
-			cursorIcon = "http://www.roblox.com/asset/?id=32328941",
-		},
-		universalRemote = {
-			icon = "http://www.roblox.com/asset/?id=1375046522",
-			cursorIcon = "http://www.roblox.com/asset/?id=1375046522",
+		truckKey = {
+			icon = "http://www.roblox.com/asset/?id=1391250210",
+			cursorIcon = "rbxgameasset://Images/crowbar-cursor",
 		},
 	},
 	environment = {
 		looseBoardScaffolding = {
-			toolRequired = "crowbar",
+			itemRequired = "crowbar",
 			resolveAction = "unanchor",
-			use = {
+			consumesItem = false,
+			interact = {
 				none = "That board looks like it could be pried off",
 				crowbar = "I managed to pull off the board!",
-				stepLadder = "That doesn't make any sense...",
-				universalRemote = "I suspect that wooden board is not remote-controllable"
+				truckKey = ""
+			}
+		},
+		truckDoor = {
+			itemRequired = "truckKey",
+			resolveAction = "unanchor",
+			consumesItem = true,
+			interact = {
+				none = "The door to the back of the truck seems to be locked.",
+				crowbar = "afjd;law;eraerawf!",
+				truckKey = "That did the trick! The door is open now."
 			}
 		},
 		npc1 = {
-			use = {
+			interact = {
 				none = "Hey man! Welcome to Sideways Town, where you can only walk along a North-South axis!  You uh... you get used to it.",
 				crowbar = "Woah dude, cool it!",
-				stepLadder = "Woah dude, cool it!",
-				universalRemote = "Nice try, but I'm not a robot."
+				truckKey = "What do you want me to do with that?",
 			}
 		}
 	}

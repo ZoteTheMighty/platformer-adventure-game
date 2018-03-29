@@ -20,20 +20,25 @@ function Obstacle.new(model)
 
 	self.objectId = model:FindFirstChild("Config"):FindFirstChild("Object").Value
 
-	self.toolRequired = EnvData[self.objectId].toolRequired
+	self.consumesItem = EnvData[self.objectId].consumesItem
+	self.itemRequired = EnvData[self.objectId].itemRequired
 	self.resolveAction = EnvData[self.objectId].resolveAction
 
 	return self
 end
 
 function Obstacle:onClick()
-	local tool = DataManager.getSelectedTool()
-	DataManager.showDialogue("player", EnvData[self.objectId].use[tool])
-	if tool == self.toolRequired then
+	local item = DataManager.getSelectedItem()
+	DataManager.showDialogue("player", EnvData[self.objectId].interact[item])
+	if item == self.item then
 		-- Resolve the obstacle
 		if self.resolveAction == "unanchor" then
 			self.model.PrimaryPart.Anchored = false
 			CollectionService:RemoveTag(self.model, "Interactive")
+		end
+		-- Consume the item if necessary
+		if self.consumesItem then
+			DataManager.consumeItem(item)
 		end
 	end
 end

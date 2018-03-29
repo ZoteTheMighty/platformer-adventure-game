@@ -8,25 +8,25 @@ function Interaction.reducer(state, action)
 	state = state or {
 		nearbyObjects = {},
 		inventoryOpen = false,
-		selectedTool = "none",
+		selectedItem = "none",
 	}
 
 	if action.type == "ObjectEnterRange" then
 		return {
 			nearbyObjects = Immutable.Set(state.nearbyObjects, action.object, true),
-			selectedTool = state.selectedTool,
+			selectedItem = state.selectedItem,
 			message = state.message,
 			inventoryOpen = state.inventoryOpen,
 		}
 	elseif action.type == "ObjectExitRange" then
 		return {
 			nearbyObjects = Immutable.RemoveFromDictionary(state.nearbyObjects, action.object),
-			selectedTool = state.selectedTool,
+			selectedItem = state.selectedItem,
 			message = state.message,
 			inventoryOpen = state.inventoryOpen,
 		}
-	elseif action.type == "ToolSelectionChanged" then
-		return Immutable.Set(state, "selectedTool", action.tool)
+	elseif action.type == "ItemSelectionChanged" then
+		return Immutable.Set(state, "selectedItem", action.item)
 	elseif action.type == "InventoryOpen" then
 		return Immutable.Set(state, "inventoryOpen", action.isOpen)
 	end

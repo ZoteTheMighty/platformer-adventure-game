@@ -4,22 +4,22 @@ local Roact = require(ReplicatedStorage.Roact)
 local DataManager = require(ReplicatedStorage.Modules.DataManager)
 
 local NameData = require(ReplicatedStorage.Modules.Data.GameObjectDb).names
-local ToolData = require(ReplicatedStorage.Modules.Data.GameObjectDb).tools
+local ItemData = require(ReplicatedStorage.Modules.Data.GameObjectDb).items
 
-local Tool = Roact.Component:extend("Tool")
+local Item = Roact.Component:extend("Item")
 
-function Tool:render()
+function Item:render()
 	local index = self.props.index
-	local toolId = self.props.toolId
+	local itemId = self.props.itemId
 
 	local imageLabel = Roact.createElement("ImageButton", {
 		Position = UDim2.new(0.1, 0, 0.1, 0),
 		Size = UDim2.new(0.8, 0, 0.8, 0),
-		Image = ToolData[toolId].icon,
+		Image = ItemData[itemId].icon,
 		BackgroundTransparency = 1,
 		ZIndex = 2,
 		[Roact.Event.MouseButton1Click] = function()
-			DataManager.selectTool(toolId)
+			DataManager.selectItem(itemId)
 			DataManager.toggleInventory()
 		end,
 	})
@@ -32,7 +32,7 @@ function Tool:render()
 		Font = Enum.Font.Cartoon,
 		TextColor3 = Color3.new(0.85, 0.85, 0.85),
 		TextSize = 18,
-		Text = NameData[toolId],
+		Text = NameData[itemId],
 		ZIndex = 3,
 	})
 
@@ -44,4 +44,4 @@ function Tool:render()
 	}, { textLabel, imageLabel })
 end
 
-return Tool
+return Item

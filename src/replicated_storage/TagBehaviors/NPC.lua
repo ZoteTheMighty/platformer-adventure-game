@@ -23,8 +23,8 @@ function NPC.new(model)
 end
 
 function NPC:onClick()
-	local tool = DataManager.getSelectedTool()
-	local message = EnvData[self.objectId].use[tool]
+	local item = DataManager.getSelectedItem()
+	local message = EnvData[self.objectId].interact[item]
 	if message then
 		DataManager.showDialogue(self.objectId, message)
 	end

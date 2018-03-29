@@ -5,7 +5,7 @@ local Players = game:GetService("Players")
 local TagBindings = require(ReplicatedStorage.Modules.TagBindings)
 local DataManager = require(ReplicatedStorage.Modules.DataManager)
 
-local ToolData = require(ReplicatedStorage.Modules.Data.GameObjectDb).tools
+local ItemData = require(ReplicatedStorage.Modules.Data.GameObjectDb).items
 
 local Camera = game.Workspace.CurrentCamera
 local Mouse = Players.LocalPlayer:GetMouse()
@@ -42,27 +42,27 @@ local function mouseClick()
 
 	-- Process click according to tag behaviors
 	local tagHolder = partToTagHolder[clickedPart]
-	if (CollectionService:HasTag(tagHolder, TagBindings.CollectibleTool.tagName)) then
-		TagBindings.CollectibleTool:get(tagHolder):onClick()
+	if (CollectionService:HasTag(tagHolder, TagBindings.CollectibleItem.tagName)) then
+		TagBindings.CollectibleItem:get(tagHolder):onClick()
 	elseif (CollectionService:HasTag(tagHolder, TagBindings.Obstacle.tagName)) then
 		TagBindings.Obstacle:get(tagHolder):onClick()
 	elseif (CollectionService:HasTag(tagHolder, TagBindings.NPC.tagName)) then
 		TagBindings.NPC:get(tagHolder):onClick()
 	end
 
-	-- Clear tool selection
-	DataManager.selectTool("none")
+	-- Clear item selection
+	DataManager.selectItem("none")
 end
 
 Mouse.Button1Down:Connect(mouseClick)
 
 DataManager.store.changed:connect(function(newState, oldState)
-	local newTool = newState.interaction.selectedTool
-	if newTool ~= oldState.interaction.selectedTool then
-		if newTool == "none" then
+	local newItem = newState.interaction.selectedItem
+	if newItem ~= oldState.interaction.selectedItem then
+		if newItem == "none" then
 			Mouse.Icon = ""
 		else
-			Mouse.Icon = ToolData[newTool].cursorIcon
+			Mouse.Icon = ItemData[newItem].cursorIcon
 		end
 	end
 end)

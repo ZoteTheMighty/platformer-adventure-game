@@ -4,21 +4,21 @@ local Roact = require(ReplicatedStorage.Roact)
 local RoactRodux = require(ReplicatedStorage.RoactRodux)
 local DataManager = require(ReplicatedStorage.Modules.DataManager)
 
-local Tool = require(ReplicatedStorage.Modules.Components.Tool)
+local Item = require(ReplicatedStorage.Modules.Components.Item)
 
-local ToolData = require(ReplicatedStorage.Modules.Data.GameObjectDb).tools
+local ItemData = require(ReplicatedStorage.Modules.Data.GameObjectDb).items
 
 local Inventory = Roact.Component:extend("Inventory")
 
-local function getToolDrawer(availableTools, pos)
+local function getItemDrawer(availableItems, pos)
 	local elements = {}
 	local count = 0
-	for id, _ in pairs(ToolData) do
-		if availableTools[id] then
+	for id, _ in pairs(ItemData) do
+		if availableItems[id] then
 			count = count+1
-			elements[count] = Roact.createElement(Tool, {
+			elements[count] = Roact.createElement(Item, {
 				index = count,
-				toolId = id,
+				itemId = id,
 			})
 		end
 	end
@@ -35,14 +35,14 @@ local function getToolDrawer(availableTools, pos)
 end
 
 function Inventory:render()
-	local availableTools = self.props.availableTools
+	local availableItems = self.props.availableItems
 	local open = self.props.open
 
 	local toggle = Roact.createElement("ImageButton", {
 		Size = UDim2.new(0, 120, 0, 120),
 		Position = UDim2.new(0, 20, 0, 20),
 		BackgroundTransparency = 1,
-		Image = "rbxgameasset://Images/bogdanco-Toolkit-300px",
+		Image = "rbxgameasset://Images/backpack-300px",
 		[Roact.Event.MouseButton1Click] = DataManager.toggleInventory,
 	})
 
@@ -50,7 +50,7 @@ function Inventory:render()
 		return toggle
 	end
 
-	local drawer = getToolDrawer(availableTools, UDim2.new(0, 20, 0, 150))
+	local drawer = getItemDrawer(availableItems, UDim2.new(0, 20, 0, 150))
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -61,7 +61,7 @@ Inventory = RoactRodux.connect(function(store, props)
 	local state = store:getState()
 
 	return {
-		availableTools = state.tools,
+		availableItems = state.items,
 		open = state.interaction.inventoryOpen,
 	}
 end)(Inventory)
