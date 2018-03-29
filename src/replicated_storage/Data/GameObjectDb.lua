@@ -23,11 +23,11 @@ local GameObjectDb = {
 		},
 		stepLadder = {
 			icon = "http://www.roblox.com/asset/?id=32328941",
-			cursorIcon = "rbxgameasset://Images/crowbar-cursor",
+			cursorIcon = "http://www.roblox.com/asset/?id=32328941",
 		},
 		universalRemote = {
 			icon = "http://www.roblox.com/asset/?id=1375046522",
-			cursorIcon = "rbxgameasset://Images/crowbar-cursor",
+			cursorIcon = "http://www.roblox.com/asset/?id=1375046522",
 		},
 	},
 	environment = {
