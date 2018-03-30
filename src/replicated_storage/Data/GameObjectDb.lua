@@ -15,17 +15,18 @@ local GameObjectDb = {
 	icons = {
 		player = "",
 		welcomeNpc = "rbxgameasset://Images/cookies-guy",
-		constructionNpc = "",
+		constructionNpc = "rbxgameasset://Images/construction-worker",
 	},
 	names = {
 		-- characters
 		player = "",
 		welcomeNpc = "Cookies Guy",
-		constructionNpc = "",
+		constructionNpc = "Construction Worker",
 		-- items
 		crowbar = "Rusty Crowbar",
 		truckKey = "Truck Key",
 		apples = "Moldy Apples",
+		nextMcguffin = "Next McGuffin",
 		-- environment
 		looseBoardScaffolding = "Loose Board",
 		truckDoor = "Truck Back Door",
@@ -37,7 +38,7 @@ local GameObjectDb = {
 		crowbar = {
 			icon = "http://www.roblox.com/asset/?id=159050206",
 			cursorIcon = "rbxgameasset://Images/crowbar-cursor",
-			foundMessage = "Hey, I could probably use this crowbar.",
+			foundMessage = "Many a great journey began with a crowbar...",
 		},
 		truckKey = {
 			icon = "http://www.roblox.com/asset/?id=1391250210",
@@ -45,15 +46,21 @@ local GameObjectDb = {
 			foundMessage = "Hey look, someone dropped a key!"
 		},
 		apples = {
-			icon = "",
-			cursorIcon = "",
+			icon = "http://www.roblox.com/asset/?id=137510460",
+			cursorIcon = "rbxgameasset://Images/apple-cursor",
 			foundMessage = "Ew... how long have these apples been here..?"
+		},
+		nextMcguffin = {
+			icon = "http://www.roblox.com/asset/?id=1019185679",
+			cursorIcon = "rbxgameasset://Images/mcguffin-cursor",
+			foundMessage = "Well... I guess I got the Next McGuffin... is this game even finished? (It's not)",
 		},
 	},
 	environment = {
+		-- obstacles
 		looseBoardScaffolding = {
 			itemRequired = "crowbar",
-			resolveAction = "unanchor",
+			resolveAction = { type = "unanchor" },
 			consumesItem = false,
 			interact = {
 				none = "That board looks like it could be pried off, if I had the right tool.",
@@ -63,28 +70,21 @@ local GameObjectDb = {
 		},
 		truckDoor = {
 			itemRequired = "truckKey",
-			resolveAction = "unanchor",
+			resolveAction = { type = "unanchor" },
 			consumesItem = true,
 			interact = {
 				none = "The door to the back of the truck seems to be locked.",
-				crowbar = "Wait... how are you doing this..?",
 				truckKey = "That did the trick! The door is open now.",
 			}
 		},
-		welcomeNpc = {
-			interact = {
-				none = "Hey man! Welcome to Sideways Town, where you can only walk along a North-South axis!  You uh... you get used to it.",
-				crowbar = "Woah dude, cool it!",
-				truckKey = "What do you want me to do with that?",
-				apples = "Gross, dude, I don't want those.",
-			}
-		},
+		-- flavor interactions
 		garbage = {
 			interact = {
 				none = "Yep, that's a pile of garbage alright.",
 				crowbar = "I'm... not gonna hit that garbage with a crowbar.",
 				truckKey = "I'm not going to throw this key in a pile of trash, it might be useful!",
-				apples = "Gross, dude, I don't want those.",
+				apples = "That probably is where they belong, but I'm going to keep them for now.",
+				nextMcguffin = "We don't know what this does yet! Guess I'm stuck here for now...",
 			}
 		},
 		mailbox = {
@@ -92,15 +92,8 @@ local GameObjectDb = {
 				none = "I don't have any letters I need to mail.",
 				crowbar = "No way! Breaking into a mailbox is a crime!",
 				truckKey = "This key is pretty clearly labeled as a \"Truck Key\"  I don't think it'll open a mailbox.",
-				apples = "Gross, dude, I don't want those.",
-			}
-		},
-		constructionNpc = {
-			interact = {
-				none = "Even if I WAS tired, I wouldn't sleep here.",
-				crowbar = "That kinda looks like MY crowbar...",
-				truckKey = "Hang on, where did you get that?",
-				apples = "Gross, dude, I don't want those.",
+				apples = "I think you have to get special postage to mail moldy fruit.",
+				nextMcguffin = "We don't know what this does yet! Guess I'm stuck here for now...",
 			}
 		},
 		cot = {
@@ -109,8 +102,36 @@ local GameObjectDb = {
 				crowbar = "I think that old cot has been through enough.",
 				truckKey = "Why do I even still have this key?",
 				apples = "Gross, dude, I don't want those.",
+				nextMcguffin = "We don't know what this does yet! Guess I'm stuck here for now...",
 			}
-		}
+		},
+		-- NPCs
+		welcomeNpc = {
+			isNpc = true,
+			interact = {
+				none = "Hey man! Welcome to Sideways Town, where you can only walk along a North-South axis!  You uh... you get used to it.",
+				crowbar = "Woah dude, cool it!",
+				truckKey = "What do you want me to do with that?",
+				apples = "Gross, dude, I don't want those.",
+				nextMcguffin = "We don't know what this does yet! Guess you're stuck here for now...",
+			}
+		},
+		constructionNpc = {
+			isNpc = true,
+			itemRequired = "apples",
+			resolveAction = {
+				type = "give",
+				item = "nextMcguffin",
+			},
+			consumesItem = true,
+			interact = {
+				none = "I'm supposed to be cleaning up this place so we can start demolition, but I'm so hungry...",
+				crowbar = "That kinda looks like MY crowbar...",
+				truckKey = "Hang on, where did you get that?",
+				apples = "Hey are those apples? Oooohhh gimme those.  Here, take this thingy.",
+				nextMcguffin = "Nah, you can keep it.  I don't even know what it does.",
+			}
+		},
 	}
 }
 

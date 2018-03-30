@@ -46,8 +46,6 @@ local function mouseClick()
 		TagBindings.CollectibleItem:get(tagHolder):onClick()
 	elseif (CollectionService:HasTag(tagHolder, TagBindings.Obstacle.tagName)) then
 		TagBindings.Obstacle:get(tagHolder):onClick()
-	elseif (CollectionService:HasTag(tagHolder, TagBindings.NPC.tagName)) then
-		TagBindings.NPC:get(tagHolder):onClick()
 	end
 
 	-- Clear item selection

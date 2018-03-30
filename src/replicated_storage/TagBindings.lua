@@ -6,7 +6,6 @@ local BouncyAwning = require(ReplicatedStorage.Modules.TagBehaviors.BouncyAwning
 local Interactive = require(ReplicatedStorage.Modules.TagBehaviors.Interactive)
 local CollectibleItem = require(ReplicatedStorage.Modules.TagBehaviors.CollectibleItem)
 local Obstacle = require(ReplicatedStorage.Modules.TagBehaviors.Obstacle)
-local NPC = require(ReplicatedStorage.Modules.TagBehaviors.NPC)
 
 local TagBindings = {
 	AdvanceTile = Binder.new("AdvanceTile", AdvanceTile),
@@ -14,7 +13,6 @@ local TagBindings = {
 	Interactive = Binder.new("Interactive", Interactive),
 	CollectibleItem = Binder.new("CollectibleItem", CollectibleItem),
 	Obstacle = Binder.new("Obstacle", Obstacle),
-	NPC = Binder.new("NPC", NPC),
 }
 
 return TagBindings

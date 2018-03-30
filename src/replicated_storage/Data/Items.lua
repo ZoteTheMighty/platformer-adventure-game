@@ -5,10 +5,7 @@ local Items = {}
 Items.__index = Items
 
 function Items.reducer(state, action)
-	state = state or {
-		crowbar = false,
-		truckKey = false,
-	}
+	state = state or {}
 
 	if action.type == "PickupItem" then
 		return Immutable.Set(state, action.item, true)

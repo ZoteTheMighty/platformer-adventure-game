@@ -14,3 +14,5 @@ local app = Roact.createElement(RoactRodux.StoreProvider, {
 })
 
 Roact.reify(app, Players.LocalPlayer.PlayerGui, "HUD")
+
+game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, false)
