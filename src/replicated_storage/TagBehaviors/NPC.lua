@@ -26,6 +26,7 @@ function NPC:onClick()
 	local item = DataManager.getSelectedItem()
 	local message = EnvData[self.objectId].interact[item]
 	if message then
+		print("Show dialogue for " .. self.objectId)
 		DataManager.showDialogue(self.objectId, message)
 	end
 end

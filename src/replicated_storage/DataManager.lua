@@ -31,7 +31,7 @@ end
 
 function DataManager.consumeItem(item)
 	DataManager.store:dispatch({
-		type = "consumeItem",
+		type = "ConsumeItem",
 		item = item,
 	})
 end

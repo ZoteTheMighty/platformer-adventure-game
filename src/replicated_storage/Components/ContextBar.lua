@@ -7,23 +7,14 @@ local ContextBar = Roact.Component:extend("ContextBar")
 
 function ContextBar:render()
 	local objectsInRange = self.props.objectsInRange
-	local children = {}
 
 	local objectList = {}
 	for k, _ in pairs(objectsInRange) do
 		objectList[#objectList+1] = k
 	end
 	local objectsString = table.concat(objectList, ", ")
-	if string.len(objectsString) > 0 then
-		children = {
-			Roact.createElement("TextLabel", {
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				TextSize = 40,
-				TextColor3 = Color3.new(0.95,0.9,0),
-				Font = Enum.Font.Cartoon,
-				Text = objectsString,
-			})
-		}
+	if string.len(objectsString) == 0 then
+		return nil
 	end
 
 	return Roact.createElement("Frame", {
@@ -32,7 +23,15 @@ function ContextBar:render()
 		Position = UDim2.new(0.5, 0, 0, 0),
 		BackgroundColor3 = Color3.new(0, 0, 0),
 		BackgroundTransparency = 0.8,
-	}, children)
+	}, 	{
+		Roact.createElement("TextLabel", {
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			TextSize = 40,
+			TextColor3 = Color3.new(0.95,0.9,0),
+			Font = Enum.Font.Cartoon,
+			Text = objectsString,
+		})
+	})
 end
 
 ContextBar = RoactRodux.connect(function(store, props)

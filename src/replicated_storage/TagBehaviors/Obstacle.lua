@@ -20,8 +20,8 @@ function Obstacle.new(model)
 
 	self.objectId = model:FindFirstChild("Config"):FindFirstChild("Object").Value
 
-	self.consumesItem = EnvData[self.objectId].consumesItem
 	self.itemRequired = EnvData[self.objectId].itemRequired
+	self.consumesItem = EnvData[self.objectId].consumesItem
 	self.resolveAction = EnvData[self.objectId].resolveAction
 
 	return self
@@ -30,7 +30,9 @@ end
 function Obstacle:onClick()
 	local item = DataManager.getSelectedItem()
 	DataManager.showDialogue("player", EnvData[self.objectId].interact[item])
-	if item == self.item then
+
+	-- If this object can be resolved with an item, attempt to do so
+	if self.itemRequired and self.itemRequired == item then
 		-- Resolve the obstacle
 		if self.resolveAction == "unanchor" then
 			self.model.PrimaryPart.Anchored = false
@@ -38,6 +40,7 @@ function Obstacle:onClick()
 		end
 		-- Consume the item if necessary
 		if self.consumesItem then
+			print("Should consume item")
 			DataManager.consumeItem(item)
 		end
 	end

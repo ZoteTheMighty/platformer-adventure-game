@@ -3,26 +3,31 @@ local Players = game:GetService("Players")
 local GameObjectDb = {
 	icons = {
 		player = "",
-		npc1 = ""
+		npc1 = "rbxgameasset://Images/cookies-guy",
 	},
 	names = {
 		-- characters
 		player = "",
-		npc1 = "Friendly-Looking Guy",
+		npc1 = "Cookies Guy",
 		-- items
 		crowbar = "Rusty Crowbar",
 		truckKey = "Truck Key",
 		-- environment
 		looseBoardScaffolding = "Loose Board",
+		truckDoor = "Truck Back Door",
+		garbage = "Pile of Garbage",
+		mailbox = "Mailbox"
 	},
 	items = {
 		crowbar = {
 			icon = "http://www.roblox.com/asset/?id=159050206",
 			cursorIcon = "rbxgameasset://Images/crowbar-cursor",
+			foundMessage = "Hey, I could probably use this crowbar.",
 		},
 		truckKey = {
 			icon = "http://www.roblox.com/asset/?id=1391250210",
-			cursorIcon = "rbxgameasset://Images/crowbar-cursor",
+			cursorIcon = "rbxgameasset://Images/key-cursor",
+			foundMessage = "Hey look, someone dropped a key!"
 		},
 	},
 	environment = {
@@ -31,9 +36,9 @@ local GameObjectDb = {
 			resolveAction = "unanchor",
 			consumesItem = false,
 			interact = {
-				none = "That board looks like it could be pried off",
+				none = "That board looks like it could be pried off, if I had the right tool.",
 				crowbar = "I managed to pull off the board!",
-				truckKey = ""
+				truckKey = "I don't see how this key will help me here."
 			}
 		},
 		truckDoor = {
@@ -42,8 +47,22 @@ local GameObjectDb = {
 			consumesItem = true,
 			interact = {
 				none = "The door to the back of the truck seems to be locked.",
-				crowbar = "afjd;law;eraerawf!",
+				crowbar = "Wait... how are you doing this..?",
 				truckKey = "That did the trick! The door is open now."
+			}
+		},
+		garbage = {
+			interact = {
+				none = "Yep, that's a pile of garbage alright.",
+				crowbar = "I'm... not gonna hit that garbage with a crowbar.",
+				truckKey = "I'm not going to throw this key in a pile of trash, it might be useful!"
+			}
+		},
+		mailbox = {
+			interact = {
+				none = "I don't have any letters I need to mail.",
+				crowbar = "No way! Breaking into a mailbox is a crime!",
+				truckKey = "This key is pretty clearly labeled as a \"Truck Key\"  I don't think it'll open a mailbox."
 			}
 		},
 		npc1 = {

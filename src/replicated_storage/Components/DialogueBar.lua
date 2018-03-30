@@ -20,6 +20,7 @@ function DialogueBar:render()
 	local characterIcon = Roact.createElement("ImageLabel", {
 		AnchorPoint = Vector2.new(0, 0),
 		Image = Data.icons[character],
+		BackgroundTransparency = 1,
 		Position = UDim2.new(0, 10, 0, 10),
 		Size = UDim2.new(0, 180, 0, 180),
 	})
@@ -50,7 +51,7 @@ function DialogueBar:render()
 		AnchorPoint = Vector2.new(0, 1),
 		AutoButtonColor = false,
 		BackgroundColor3 = Color3.new(0, 0, 0),
-		BackgroundTransparency = 0.7,
+		BackgroundTransparency = 0.3,
 		Position = UDim2.new(0, 0, 1, 0),
 		Size = UDim2.new(1, 0, 0, 200),
 		[Roact.Event.MouseButton1Click] = function()

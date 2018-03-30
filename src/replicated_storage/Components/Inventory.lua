@@ -52,6 +52,10 @@ function Inventory:render()
 
 	local drawer = getItemDrawer(availableItems, UDim2.new(0, 20, 0, 150))
 
+	if not drawer then
+		return nil
+	end
+
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 	}, { toggle, drawer })

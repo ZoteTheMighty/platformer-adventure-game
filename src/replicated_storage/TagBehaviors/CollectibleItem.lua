@@ -1,6 +1,8 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local DataManager = require(ReplicatedStorage.Modules.DataManager)
 
+local ItemData = require(ReplicatedStorage.Modules.Data.GameObjectDb).items
+
 local CollectibleItem = {}
 CollectibleItem.__index = CollectibleItem
 
@@ -21,6 +23,7 @@ end
 
 function CollectibleItem:onClick()
 	DataManager.addItem(self.item)
+	DataManager.showDialogue("player", ItemData[self.item].foundMessage)
 	self.model:Destroy()
 end
 
