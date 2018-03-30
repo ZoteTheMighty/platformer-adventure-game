@@ -33,15 +33,19 @@ function Obstacle:onClick()
 
 	-- If this object can be resolved with an item, attempt to do so
 	if self.itemRequired and self.itemRequired == item then
+		-- Consume the item if necessary
+		if self.consumesItem then
+			DataManager.consumeItem(item)
+		end
 		-- Resolve the obstacle
 		if self.resolveAction == "unanchor" then
 			self.model.PrimaryPart.Anchored = false
 			CollectionService:RemoveTag(self.model, "Interactive")
-		end
-		-- Consume the item if necessary
-		if self.consumesItem then
-			print("Should consume item")
-			DataManager.consumeItem(item)
+		else
+			-- If it's not a known action, it's another item you get
+			-- We should wait so that the message can be read
+			wait(3)
+			DataManager.addItem(self.resolveAction)
 		end
 	end
 end
